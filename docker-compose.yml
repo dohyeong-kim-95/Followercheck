@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  sns-tracker:
+    build: .
+    container_name: sns-follower-tracker
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Seoul
+      - NODE_ENV=production
+    env_file:
+      - .env
+    volumes:
+      - ./credentials.json:/app/credentials.json:ro
+      - ./logs:/app/logs
+    networks:
+      - tracker-network
+
+networks:
+  tracker-network:
+    driver: bridge
